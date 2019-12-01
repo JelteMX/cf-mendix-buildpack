@@ -1122,17 +1122,18 @@ def configure_logging(m2ee):
 
 
 def display_java_version():
-    java_version = (
-        subprocess.check_output(
-            [".local/bin/java", "-version"], stderr=subprocess.STDOUT
-        )
-        .decode("utf8")
-        .strip()
-        .split("\n")
-    )
-    logger.info("Using Java version:")
-    for line in java_version:
-        logger.info(line)
+    logger.info("Unknown Java version, fix in balena")
+    # java_version = (
+    #     subprocess.check_output(
+    #         [".local/bin/java", "-version"], stderr=subprocess.STDOUT
+    #     )
+    #     .decode("utf8")
+    #     .strip()
+    #     .split("\n")
+    # )
+    # logger.info("Using Java version:")
+    # for line in java_version:
+    #     logger.info(line)
 
 
 def display_running_version(m2ee):
