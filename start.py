@@ -343,10 +343,11 @@ def set_jvm_memory(m2ee_section, vcap, java_version):
     javaopts.append("-Xmx%s" % heap_size)
     javaopts.append("-Xms%s" % heap_size)
 
-    if java_version.startswith("7"):
-        javaopts.append("-XX:MaxPermSize=256M")
-    else:
-        javaopts.append("-XX:MaxMetaspaceSize=256M")
+    # Disabled for Pi, as we're using OpenJDK
+    # if java_version.startswith("7"):
+    #     javaopts.append("-XX:MaxPermSize=256M")
+    # else:
+    #     javaopts.append("-XX:MaxMetaspaceSize=256M")
 
     logger.debug("Java heap size set to %s" % heap_size)
 
@@ -1275,14 +1276,14 @@ if __name__ == "__main__":
         signal.signal(signal.SIGUSR2, sigusr_handler)
 
         service_backups()
-        set_up_nginx_files(m2ee)
+        # set_up_nginx_files(m2ee)
         telegraf.run()
         datadog.run(m2ee.config.get_runtime_version())
         complete_start_procedure_safe_to_use_for_restart(m2ee)
         set_up_instadeploy_if_deploy_password_is_set(m2ee)
         start_metrics(m2ee)
         start_logging_heartbeat()
-        start_nginx()
+        # start_nginx()
         loop_until_process_dies(m2ee)
     except Exception:
         x = traceback.format_exc()

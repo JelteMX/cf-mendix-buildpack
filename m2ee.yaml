@@ -7,7 +7,7 @@ m2ee:
  admin_port: ADMIN_PORT
  custom_environment:
   HOME: BUILD_PATH
- javabin: BUILD_PATH/.local/bin/java
+ # javabin: BUILD_PATH/.local/bin/java
 
  runtime_port: RUNTIME_PORT
  runtime_listen_addresses: "*"

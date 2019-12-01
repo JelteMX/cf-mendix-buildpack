@@ -112,22 +112,23 @@ def check_database_environment_variable():
 
 
 def set_up_java():
-    logging.debug("begin download and install java")
-    buildpackutil.mkdir_p(os.path.join(DOT_LOCAL_LOCATION, "bin"))
-    jvm_location = buildpackutil.ensure_and_get_jvm(
-        get_runtime_version(), CACHE_DIR, DOT_LOCAL_LOCATION, package="jre"
-    )
-    # create a symlink in .local/bin/java
-    os.symlink(
-        # use .. when jdk is in .local because absolute path is different at staging time
-        os.path.join(
-            jvm_location.replace(DOT_LOCAL_LOCATION, ".."), "bin", "java"
-        ),
-        os.path.join(DOT_LOCAL_LOCATION, "bin", "java"),
-    )
-    # update cacert file
-    buildpackutil.update_java_cacert(BUILDPACK_DIR, jvm_location)
-    logging.debug("end download and install java")
+    logging.debug("skipping java for Pi")
+    # logging.debug("begin download and install java")
+    # buildpackutil.mkdir_p(os.path.join(DOT_LOCAL_LOCATION, "bin"))
+    # jvm_location = buildpackutil.ensure_and_get_jvm(
+    #     get_runtime_version(), CACHE_DIR, DOT_LOCAL_LOCATION, package="jre"
+    # )
+    # # create a symlink in .local/bin/java
+    # os.symlink(
+    #     # use .. when jdk is in .local because absolute path is different at staging time
+    #     os.path.join(
+    #         jvm_location.replace(DOT_LOCAL_LOCATION, ".."), "bin", "java"
+    #     ),
+    #     os.path.join(DOT_LOCAL_LOCATION, "bin", "java"),
+    # )
+    # # update cacert file
+    # buildpackutil.update_java_cacert(BUILDPACK_DIR, jvm_location)
+    # logging.debug("end download and install java")
 
 
 def preflight_check():
@@ -335,5 +336,6 @@ if __name__ == "__main__":
     download_mendix_version()
     copy_buildpack_resources()
     write_current_git_commit()
-    set_up_nginx()
+    # Skip nginx for PI
+    # set_up_nginx()
     logging.info("buildpack compile completed")
